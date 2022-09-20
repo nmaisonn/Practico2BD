@@ -4,8 +4,9 @@
  */
 package Recursos;
 
-import Negocio.Persona;
-import Negocio.Rol;
+import Negocio.DTOS.PersonaDTO;
+import Negocio.DTOS.RolDTO;
+
 
 /**
  *
@@ -15,8 +16,8 @@ public class Contenedora {
 
     private static Contenedora instance;
     
-    private Persona personaDetalles;
-    private Rol rolListado;
+    private PersonaDTO personaDetalles;
+    private RolDTO rolListado;
 
     private Contenedora() {        
     }
@@ -28,20 +29,20 @@ public class Contenedora {
         return instance;
     }
     
-    public Persona getPersonaDetalle()
+    public PersonaDTO getPersonaDetalle()
     {
         return this.personaDetalles;
     }
-    public void setPersona(Persona p){
+    public void setPersona(PersonaDTO p){
         this.personaDetalles = p;
     }
     
-    public void setRolListado(Rol pRol)
+    public void setRolListado(RolDTO pRol)
     {
         this.rolListado = pRol;
     }
     
-    public Rol getRolListado()
+    public RolDTO getRolListado()
     {
        return this.rolListado;
     }

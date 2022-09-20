@@ -4,8 +4,8 @@
  */
 package Presentacion;
 
-import Negocio.Persona;
-import Negocio.PersonaMateria;
+import Negocio.DTOS.PersonaDTO;
+import Negocio.DTOS.PersonaMateriaDTO;
 import Recursos.Contenedora;
 import java.awt.Color;
 import java.awt.Font;
@@ -237,7 +237,7 @@ public class Detllaes extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         txtRol2.setVisible(false);
         contenedora = Contenedora.GetInstance();
-        Persona pers =contenedora.getPersonaDetalle();
+        PersonaDTO pers = contenedora.getPersonaDetalle();
         cargarTablas(pers);
         cargarCampos(pers);
     }//GEN-LAST:event_formWindowOpened
@@ -282,12 +282,12 @@ public class Detllaes extends javax.swing.JFrame {
         });
     }
 
-    private void cargarTablas(Persona pPersona) {
+    private void cargarTablas(PersonaDTO pPersona) {
         cargarTablaMateriasCursando(pPersona);
         cargarTablaMateriasDictando(pPersona);
     }
     
-    private void cargarCampos(Persona pPersona)
+    private void cargarCampos(PersonaDTO pPersona)
     {
         txtCi.setText(pPersona.Ci);
         txtNombre.setText(pPersona.Nombre);
@@ -333,10 +333,10 @@ public class Detllaes extends javax.swing.JFrame {
         UIManager.put("nimbusBlueGrey", new Color(215, 235, 235));
     }
     
-    private void cargarTablaMateriasCursando(Persona pPersona) {
+    private void cargarTablaMateriasCursando(PersonaDTO pPersona) {
         vaciarTablasMateriasCursando();
         String[] texto = new String[5];
-        for (PersonaMateria mat : pPersona.MateriaCursando) {
+        for (PersonaMateriaDTO mat : pPersona.MateriaCursando) {
             texto[0] = String.valueOf(mat.Materia.Nombre);
             texto[1] = String.valueOf(mat.Materia.Creditos);
             texto[2] = String.valueOf(mat.Materia.CantidadClases);
@@ -347,10 +347,10 @@ public class Detllaes extends javax.swing.JFrame {
         modeloMateriasCursando.fireTableDataChanged();
     }
     
-    private void cargarTablaMateriasDictando(Persona pPersona) {
+    private void cargarTablaMateriasDictando(PersonaDTO pPersona) {
         vaciarTablasMateriasDictando();
         String[] texto = new String[5];
-        for (PersonaMateria mat : pPersona.MateriaDictando) {
+        for (PersonaMateriaDTO mat : pPersona.MateriaDictando) {
             texto[0] = String.valueOf(mat.Materia.Nombre);
             texto[1] = String.valueOf(mat.Materia.Creditos);
             texto[2] = String.valueOf(mat.Materia.CantidadClases);

@@ -4,11 +4,16 @@
  */
 package Presentacion;
 
-import Negocio.Persona;
-import Negocio.Rol;
+import Negocio.DTOS.PersonaDTO;
+import Negocio.DTOS.PersonaMateriaDTO;
+import Negocio.DTOS.RolDTO;
+
+import Negocio.Servicios.PersonaService;
+import Negocio.Servicios.RolService;
 import Recursos.Contenedora;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.LinkedList;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -228,7 +233,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
         xContenedora = Contenedora.GetInstance();
-        Persona p = Persona.getPersonaByCi(txtDetalles.toString());
+        PersonaDTO p = PersonaService.getPersonaByCi(txtDetalles.toString());
         if (p == null) {
             txtEstado.setText("No existe una persona con esa Ci");
         } else {
@@ -236,7 +241,6 @@ public class Principal extends javax.swing.JFrame {
             new Detllaes().setVisible(true);
             this.setVisible(false);
         }
-
     }//GEN-LAST:event_btnDetallesActionPerformed
 
     private void txtCedulaEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaEliminarActionPerformed
@@ -249,7 +253,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         xContenedora = Contenedora.GetInstance();
-        Rol r = Rol.getRol(txtListar.toString());
+        RolDTO r = RolService.getRol(txtListar.toString());
         if (r == null) {
             txtEstado.setText("Ese rol no existe");
         } else {
@@ -260,15 +264,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        Persona per = Persona.getPersonaByCi(txtCedulaActualizar.toString());
+        PersonaDTO per = PersonaService.getPersonaByCi(txtCedulaActualizar.toString());
         if (per != null) {
-            for (Rol r : per.Tipos) {
+            for (RolDTO r : per.Tipos) {
                 if (r.Nombre.equals(txtRolActualizar.toString())) {
                     txtEstado.setText("Esa persona ya tiene ese rol");
                 }
             }
             if (txtEstado.getText().equals("")) {
-                Persona.actualizarPersona(per.Ci,txtRolActualizar.toString());
+                PersonaService.actualizarPersona(per.Ci,txtRolActualizar.toString());
                 txtEstado.setText("Actualizado");
             }
         } else {
@@ -281,10 +285,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Persona per = Persona.getPersonaByCi(txtCedulaEliminar.toString());
+        PersonaDTO per = PersonaService.getPersonaByCi(txtCedulaEliminar.toString());
         if (per != null) {
             if (txtEstado.getText().equals("")) {
-                Persona.deletePersona(per.Ci);
+                PersonaService.deletePersona(per.Ci);
                 txtEstado.setText("Eliminado");
             }
         } else {
@@ -347,8 +351,8 @@ public class Principal extends javax.swing.JFrame {
     private void cargarTablaPersonas() {
         vaciarTablaPersonas();
         String[] texto = new String[3];
-        Persona[] personas = Persona.getPersonas();
-        for (Persona p : personas) {
+        LinkedList<PersonaDTO> personas = PersonaService.getPersonas();
+        for (PersonaDTO p : personas) {
             texto[0] = String.valueOf(p.Ci);
             texto[1] = String.valueOf(p.Nombre);
             if (p.Tipos.size() == 1) {

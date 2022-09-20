@@ -4,11 +4,14 @@
  */
 package Presentacion;
 
-import Negocio.Persona;
-import Negocio.Rol;
+
+import Negocio.DTOS.PersonaDTO;
+import Negocio.DTOS.RolDTO;
+import Negocio.Servicios.PersonaService;
 import Recursos.Contenedora;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.LinkedList;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -187,12 +190,12 @@ public class Listado extends javax.swing.JFrame {
         UIManager.put("nimbusBlueGrey", new Color(215, 235, 235));
     }
 
-     private void cargarTabla(Rol pRol) {
+     private void cargarTabla(RolDTO pRol) {
         vaciarTablaPersonaRol();
         String[] texto = new String[3];
-        String[] cedulas = Persona.getPersonasByRol(pRol.Nombre);
-        for (String c : cedulas) {
-            texto[0] = String.valueOf(c);
+        LinkedList<PersonaDTO> personas = PersonaService.getPersonasByRol(pRol.Nombre);
+        for (PersonaDTO p : personas) {
+            texto[0] = String.valueOf(p.Ci);
             modeloPersonasRol.addRow(texto);
         }
         modeloPersonasRol.fireTableDataChanged();

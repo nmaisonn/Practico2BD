@@ -2,24 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Negocio;
+package Negocio.DTOS;
 
 /**
  *
  * @author nmais
  */
-public class Materia {
-    
+public class MateriaDTO {
     public int Id;
     public String Nombre;
     public int Creditos;
     public int CantidadClases;
     
-    public Materia(String pNombre, int pCreditos, int pCantidadClases)
+    public MateriaDTO(String pNombre, int pCreditos, int pCantidadClases)
     {
         this.Nombre=pNombre;
         this.Creditos=pCreditos;
         this.CantidadClases=pCantidadClases;
     }
-    
 }
